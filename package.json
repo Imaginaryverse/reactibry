@@ -1,5 +1,8 @@
 {
-  "name": "reactibry",
+  "name": "@Imaginaryverse/reactibry",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Imaginaryverse"
+  },
   "version": "0.0.1",
   "description": "A library of React components based on Atom Design principles",
   "scripts": {
