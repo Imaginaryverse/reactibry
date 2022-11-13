@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { List, ListProps } from './List';
+import { List } from './List';
 import { Button } from '../Button/Button';
+import { ListProps } from './List.types';
 
 export default {
   title: 'Atoms/List',

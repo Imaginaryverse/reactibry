@@ -6,9 +6,9 @@ import { generateTheme } from '../src/theme/context/ThemeContext';
 const darkThemeConfig = {
   name: 'dark',
   transitionSpeed: 'instant',
-  cornerRoundness: 'none',
+  cornerRoundness: 'small',
   boxShadow: 'discrete',
-  textShadow: 'none',
+  textShadow: 'weak',
   colorPalette: {
     body: '#1e2021',
     foreground: '#292c2e',
@@ -23,7 +23,7 @@ const lightThemeConfig = {
   transitionSpeed: 'instant',
   cornerRoundness: 'small',
   boxShadow: 'discrete',
-  textShadow: 'none',
+  textShadow: 'weak',
   colorPalette: {
     body: '#FEFEFE',
     foreground: '#292c2e',

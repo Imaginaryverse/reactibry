@@ -1,56 +1,20 @@
 import React, { FC } from 'react';
+import styled from 'styled-components';
 import { createClassName } from '../../utils/stringUtils';
-import './List.scss';
+import { ListProps } from './List.types';
 
-export type ListOrientation = 'horizontal' | 'vertical';
-export type ListStyleType =
-  | 'disc'
-  | 'armenian'
-  | 'circle'
-  | 'cjk-ideographic'
-  | 'decimal'
-  | 'decimal-leading-zero'
-  | 'georgian'
-  | 'hebrew'
-  | 'hiragana'
-  | 'hiragana-iroha'
-  | 'katakana'
-  | 'katakana-iroha'
-  | 'lower-alpha'
-  | 'lower-greek'
-  | 'lower-latin'
-  | 'lower-roman'
-  | 'none'
-  | 'square'
-  | 'upper-alpha'
-  | 'upper-greek'
-  | 'upper-latin'
-  | 'upper-roman'
-  | 'initial'
-  | 'inherit';
-
-export type ListProps = {
-  items?: React.ReactNode[];
-  ordered?: boolean;
-  orientation?: ListOrientation;
-  marker?: ListStyleType;
-  style?: React.CSSProperties;
-  className?: string;
-};
-
-export const List: FC<ListProps> = ({
+const ListElement: FC<ListProps> = ({
   items,
   ordered,
   orientation = 'vertical',
-  marker,
-  style,
+  listStyleType,
   className,
 }) => {
   if (!!ordered) {
     return (
       <ol
-        className={createClassName(`list ordered ${orientation}`, className)}
-        style={{ listStyleType: marker ?? 'decimal', ...style }}
+        className={createClassName(`list`, className)}
+        style={{ listStyleType: listStyleType ?? 'decimal' }}
       >
         {items?.map((item, i) => (
           <li className='list-item' key={i}>
@@ -63,8 +27,8 @@ export const List: FC<ListProps> = ({
 
   return (
     <ul
-      className={createClassName(`list unordered ${orientation}`, className)}
-      style={{ listStyleType: marker ?? 'none', ...style }}
+      className={createClassName(`list`, className)}
+      style={{ listStyleType: listStyleType ?? 'none' }}
     >
       {items?.map((item, i) => (
         <li className='list-item' key={i}>
@@ -72,5 +36,37 @@ export const List: FC<ListProps> = ({
         </li>
       ))}
     </ul>
+  );
+};
+
+const StyledList = styled(ListElement)`
+  list-style-position: inside;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+
+  flex-direction: ${props =>
+    !!props.orientation && props.orientation === 'vertical' ? 'column' : 'row'};
+
+  color: ${props => props.theme.colorPalette.text};
+  list-style-type: ${props => props.listStyleType};
+`;
+
+export const List: FC<ListProps> = ({
+  items,
+  ordered,
+  orientation,
+  listStyleType,
+  className,
+}) => {
+  return (
+    <StyledList
+      items={items}
+      ordered={ordered}
+      orientation={orientation}
+      listStyleType={listStyleType}
+      className={className}
+    />
   );
 };

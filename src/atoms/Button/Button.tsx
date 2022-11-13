@@ -36,6 +36,7 @@ const StyledButton = styled(ButtonElement)`
   font-weight: bolder;
 
   box-shadow: ${props => props?.theme?.boxShadow};
+  text-shadow: ${props => props?.theme?.textShadow};
 
   transition: ${props => props?.theme?.transitionSpeed};
 
@@ -60,7 +61,7 @@ const StyledButton = styled(ButtonElement)`
   &.secondary {
     border-color: ${props => props?.theme?.colorPalette.primary};
     background-color: transparent;
-    color: ${props => props?.theme?.colorPalette.primary};
+    color: ${props => props?.theme?.colorPalette.text};
   }
 `;
 
