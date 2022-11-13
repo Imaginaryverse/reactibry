@@ -9,5 +9,26 @@ export const createClassName = function createClassName(
   prefix: string,
   custom?: string
 ): string {
-  return `${prefix} ${custom ?? ''}`;
+  return `${prefix}${custom ? ` ${custom}` : ''}`;
+};
+
+/**
+ * Generates a string starting with a default class name followed by optional class names provided that their condition is truthy.
+ * @param defaultClass default class name.
+ * @param options optional class names.
+ * @returns string
+ */
+export const withOptionalClass = function withOptionalClass(
+  defaultClass: string,
+  options: { className: string; condition: boolean }[]
+): string {
+  const classNames: string[] = [defaultClass];
+
+  for (const option of options) {
+    if (!!option.condition) {
+      classNames.push(option.className);
+    }
+  }
+
+  return classNames.join(' ');
 };

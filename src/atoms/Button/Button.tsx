@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import { createClassName } from '../../utils/stringUtils';
-import './Button.css';
+import './Button.scss';
 
 export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonSize = 'small' | 'medium' | 'large';
 
 export type ButtonProps = {
   label: string;
   variant?: ButtonVariant;
+  size?: ButtonSize;
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   onClick?: () => void;
   disabled?: boolean;
@@ -17,9 +19,10 @@ export type ButtonProps = {
 export const Button: FC<ButtonProps> = ({
   label,
   variant = 'primary',
-  type,
+  size = 'medium',
+  type = 'button',
   onClick,
-  disabled,
+  disabled = false,
   className,
   style,
 }) => {
@@ -28,7 +31,7 @@ export const Button: FC<ButtonProps> = ({
       type={type}
       onClick={() => onClick?.()}
       disabled={disabled}
-      className={createClassName(`btn-${variant}`, className)}
+      className={createClassName(`btn-${variant} ${size}`, className)}
       style={style}
     >
       {label}
