@@ -5,6 +5,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/preset-scss',
+    '@react-theming/storybook-addon',
   ],
   framework: '@storybook/react',
   core: {

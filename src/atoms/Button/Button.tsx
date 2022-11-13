@@ -1,40 +1,89 @@
 import React, { FC } from 'react';
+import styled, { useTheme } from 'styled-components';
 import { createClassName } from '../../utils/stringUtils';
-import './Button.scss';
+import { ButtonElementProps, ButtonProps } from './Button.types';
+import { getButtonPadding } from './Button.utils';
 
-export type ButtonVariant = 'primary' | 'secondary';
-export type ButtonSize = 'small' | 'medium' | 'large';
-
-export type ButtonProps = {
-  label: string;
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  onClick?: () => void;
-  disabled?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-};
-
-export const Button: FC<ButtonProps> = ({
+const ButtonElement: FC<ButtonElementProps> = ({
   label,
   variant = 'primary',
-  size = 'medium',
   type = 'button',
   onClick,
   disabled = false,
   className,
-  style,
 }) => {
   return (
     <button
       type={type}
       onClick={() => onClick?.()}
       disabled={disabled}
-      className={createClassName(`btn-${variant} ${size}`, className)}
-      style={style}
+      className={createClassName(`${variant}`, className)}
     >
       {label}
     </button>
+  );
+};
+
+const StyledButton = styled(ButtonElement)`
+  display: inline-block;
+  padding: ${props => getButtonPadding(props.size)};
+  border-width: 2px;
+  border-style: solid;
+  border-radius: ${props => props?.theme?.cornerRoundness};
+
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bolder;
+
+  box-shadow: ${props => props?.theme?.boxShadow};
+
+  transition: ${props => props?.theme?.transitionSpeed};
+
+  &:hover:not(:disabled) {
+    transform: scale(102%);
+    cursor: pointer;
+    filter: brightness(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    filter: grayscale(1);
+    box-shadow: none;
+  }
+
+  &.primary {
+    border-color: rgba(0, 0, 0, 0.07);
+    background-color: ${props => props?.theme?.colorPalette.primary};
+    color: ${props => props?.theme?.colorPalette.text};
+  }
+
+  &.secondary {
+    border-color: ${props => props?.theme?.colorPalette.primary};
+    background-color: transparent;
+    color: ${props => props?.theme?.colorPalette.primary};
+  }
+`;
+
+export const Button: FC<ButtonProps> = ({
+  label,
+  variant,
+  size,
+  type,
+  onClick,
+  disabled,
+  className,
+}) => {
+  const theme = useTheme();
+  return (
+    <StyledButton
+      label={label}
+      variant={variant}
+      size={size}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      theme={theme}
+      className={className}
+    />
   );
 };

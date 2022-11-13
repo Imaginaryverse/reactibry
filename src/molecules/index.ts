@@ -1,1 +1,1 @@
-export { ButtonGroup } from './ButtonGroup/ButtonGroup';
+export { Input } from './Input/Input';
